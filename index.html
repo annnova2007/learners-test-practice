@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learner's Test Practice</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="app">
+
+  <!-- ============ PIN LOCK SCREEN ============ -->
+  <section id="screen-pin" class="screen active">
+    <div class="pin-wrap">
+      <div class="pin-icon">🔒</div>
+      <h1 class="pin-title">Enter Security PIN</h1>
+      <p class="pin-desc">This practice app is private. Enter the PIN to continue.</p>
+
+      <div id="pin-dots" class="pin-dots">
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+        <span class="pin-dot"></span>
+      </div>
+
+      <input type="tel" id="pin-input" inputmode="numeric" autocomplete="off" maxlength="8" class="pin-hidden-input">
+
+      <div id="pin-error" class="pin-error hidden">Incorrect PIN — try again</div>
+
+      <div class="pin-keypad" id="pin-keypad">
+        <button class="pin-key" data-k="1">1</button>
+        <button class="pin-key" data-k="2">2</button>
+        <button class="pin-key" data-k="3">3</button>
+        <button class="pin-key" data-k="4">4</button>
+        <button class="pin-key" data-k="5">5</button>
+        <button class="pin-key" data-k="6">6</button>
+        <button class="pin-key" data-k="7">7</button>
+        <button class="pin-key" data-k="8">8</button>
+        <button class="pin-key" data-k="9">9</button>
+        <button class="pin-key pin-key-ghost" disabled></button>
+        <button class="pin-key" data-k="0">0</button>
+        <button class="pin-key pin-key-del" id="pin-del">⌫</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ START SCREEN ============ -->
+  <section id="screen-start" class="screen">
+    <div class="start-wrap">
+      <div class="road">
+        <div class="lane-line"></div>
+        <div id="bike" class="bike">
+          <div class="bike-rig">
+            <img class="bike-body-img" src="images/bike/bike_body.png" alt="Motorbike">
+            <img class="wheel-img wheel-rear" src="images/bike/wheel_rear.png" alt="">
+            <img class="wheel-img wheel-front" src="images/bike/wheel_front.png" alt="">
+          </div>
+        </div>
+        <div class="speed-lines">
+          <span></span><span></span><span></span>
+        </div>
+      </div>
+
+      <h1>Learner's Test Practice</h1>
+      <p class="subtitle">Practice for your LMV / Motorcycle learner's licence exam</p>
+      <p class="tagline">877 questions · signs, rules &amp; scenarios</p>
+
+      <div class="start-actions">
+        <button id="btn-start" class="btn-primary btn-lg">Start Learning</button>
+        <button id="btn-mock" class="btn-mock btn-lg">Take Mock Test</button>
+      </div>
+      <p class="mock-hint">Mock test: 30 random questions · 30 seconds each · passes automatically at 18 correct</p>
+
+      <div id="best-score-box" class="best-score-box hidden">
+        <div class="best-score-title">Your best attempt</div>
+        <div id="best-score-content"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SETUP SCREEN (choose length) ============ -->
+  <section id="screen-setup" class="screen">
+    <div class="setup-wrap">
+      <h2>Ready when you are</h2>
+      <p class="setup-desc">Pick how many questions for this attempt. Questions are shuffled from the full bank each time.</p>
+      <div class="option-grid" id="length-options">
+        <button class="option-card" data-len="10">10<span>Quick check</span></button>
+        <button class="option-card" data-len="25">25<span>Standard</span></button>
+        <button class="option-card" data-len="50">50<span>Thorough</span></button>
+        <button class="option-card" data-len="877">All 877<span>Full bank</span></button>
+      </div>
+      <div class="setup-actions">
+        <button id="btn-back-start" class="btn-secondary">Back</button>
+        <button id="btn-begin-quiz" class="btn-primary" disabled>Begin Quiz</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ QUIZ SCREEN ============ -->
+  <section id="screen-quiz" class="screen">
+    <div class="quiz-header">
+      <button id="btn-quit" class="btn-quit" title="Quit test">✕ Quit</button>
+      <div id="mock-countdown" class="mock-countdown hidden">30</div>
+      <div class="quiz-progress">
+        <div class="progress-track"><div id="progress-fill" class="progress-fill"></div></div>
+        <div class="progress-label"><span id="qnum-label">1</span> / <span id="qtotal-label">25</span></div>
+      </div>
+      <div class="quiz-timer" id="timer">00:00</div>
+      <div id="mock-score" class="mock-score hidden">Score <span id="mock-score-num">0</span></div>
+    </div>
+
+    <div class="quiz-body">
+      <div class="question-card">
+        <div id="illustration-wrap" class="illustration-wrap hidden">
+          <img id="illustration-img" src="" alt="Sign illustration">
+        </div>
+        <h2 id="question-text" class="question-text"></h2>
+
+        <div id="options-text" class="options-list"></div>
+        <div id="options-image" class="options-grid-images hidden"></div>
+      </div>
+    </div>
+
+    <div class="quiz-footer">
+      <div id="feedback-msg" class="feedback-msg"></div>
+      <button id="btn-next" class="btn-primary" disabled>Next Question</button>
+    </div>
+  </section>
+
+  <!-- ============ QUIT CONFIRM MODAL ============ -->
+  <div id="modal-quit" class="modal-overlay hidden">
+    <div class="modal-box">
+      <h3>Quit this test?</h3>
+      <p>Your progress on this attempt will not be saved. You can start a fresh attempt anytime.</p>
+      <div class="modal-actions">
+        <button id="btn-quit-cancel" class="btn-secondary">Keep going</button>
+        <button id="btn-quit-confirm" class="btn-danger">Quit test</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ RESULTS SCREEN ============ -->
+  <section id="screen-results" class="screen">
+    <div class="results-wrap">
+      <div id="pass-banner" class="pass-banner hidden">
+        <div class="pass-banner-icon">✅</div>
+        <div class="pass-banner-text">PASSED</div>
+        <div class="pass-banner-sub" id="pass-banner-sub"></div>
+      </div>
+      <div id="results-badge" class="results-badge">🏁</div>
+      <h2 id="results-title">Test Complete</h2>
+
+      <div class="results-stats">
+        <div class="stat-card stat-good">
+          <div class="stat-num" id="stat-correct">0</div>
+          <div class="stat-label">Correct</div>
+        </div>
+        <div class="stat-card stat-bad">
+          <div class="stat-num" id="stat-wrong">0</div>
+          <div class="stat-label">Wrong</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-pct">0%</div>
+          <div class="stat-label">Score</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-num" id="stat-time">00:00</div>
+          <div class="stat-label">Time Taken</div>
+        </div>
+      </div>
+
+      <div id="compare-box" class="compare-box hidden"></div>
+
+      <div class="results-actions">
+        <button id="btn-review" class="btn-secondary">Review Answers</button>
+        <button id="btn-retry" class="btn-primary">Take Another Test</button>
+      </div>
+
+      <div class="history-section">
+        <div class="history-header">
+          <h3>Attempt History</h3>
+          <button id="btn-clear-history" class="btn-link">Clear history</button>
+        </div>
+        <div id="history-list" class="history-list"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ REVIEW SCREEN ============ -->
+  <section id="screen-review" class="screen">
+    <div class="review-wrap">
+      <div class="review-header">
+        <h2>Review Answers</h2>
+        <button id="btn-review-back" class="btn-secondary">Back to Results</button>
+      </div>
+      <div id="review-list" class="review-list"></div>
+    </div>
+  </section>
+
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
