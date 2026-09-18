@@ -173,7 +173,7 @@ Where applicable, inferred answers are marked internally as `answer_inferred`.
 
 A short demonstration video showing the application interface and quiz flow is included with this project.
 
-**▶️ [Watch the project demo](#)**
+https://github.com/user-attachments/assets/9b310891-cfc4-466b-902b-400077b87421
 
 > Replace the link above with the GitHub video attachment URL after uploading the demo video.
 
