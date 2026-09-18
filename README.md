@@ -1,112 +1,221 @@
-# Learner's Test Practice — Local Quiz App
+# Learner's Test Practice
 
-A self-contained, offline quiz app for practicing the learner's licence test
-(877 questions, including traffic-sign recognition questions with images).
+A self-contained, offline-friendly quiz application for practicing the learner's licence test. The app contains **877 questions**, including traffic-sign recognition questions with images, and provides both practice and mock-test modes.
 
-## How to run it
+## Overview
 
-This app loads `data.json` via `fetch()`, so it must be served by a local
-web server — opening `index.html` directly by double-clicking it will not
-work (browsers block `fetch` on `file://` pages).
+**Learner's Test Practice** is a browser-based quiz application designed to make learner's licence preparation simple and interactive.
 
-**Easiest option — Python (most computers already have this):**
+It runs entirely on the client side using **HTML, CSS, and JavaScript**, with question data stored locally in `data.json`. No external JavaScript libraries or backend server are required.
 
-1. Open a terminal / command prompt in this folder.
-2. Run:
-   ```
-   python3 -m http.server 8000
-   ```
-   (On Windows, if `python3` isn't recognized, try `python`.)
-3. Open your browser to: **http://localhost:8000**
+### Key Highlights
 
-**Alternative — Node.js:**
-```
-npx serve .
-```
-then open the URL it prints.
-
-**Alternative — VS Code:**
-Install the "Live Server" extension, right-click `index.html`, choose
-"Open with Live Server".
-
-## What's inside
-
-- `index.html` — page structure (start screen, setup, quiz, results, review)
-- `style.css` — all styling
-- `app.js` — all app logic (no external JS libraries, no build step)
-- `data.json` — the 877 parsed questions
-- `images/` — traffic-sign icons and illustration images referenced by the questions
+* 877 learner's licence practice questions
+* Traffic-sign questions with images
+* Practice mode with customizable question counts
+* Timed 30-question mock tests
+* Instant answer feedback
+* Automatic scoring and results
+* Personal best tracking using browser local storage
+* Answer review after each attempt
+* Session-based PIN access
+* No database or backend required
 
 ## Features
 
-- **Start Learning** — pick 10 / 25 / 50 / all 877 questions, shuffled each time
-- **Take Mock Test** — 30 random questions, 30 seconds each. A countdown
-  shows on the left of the quiz header and your live score on the right.
-  If time runs out on a question it's marked as unanswered and the quiz
-  auto-advances. The test stops immediately and shows **PASSED** the
-  moment you reach 18 correct answers.
-- Tap an answer to see it turn green (correct) or red (wrong) instantly.
-- Results screen shows time taken, correct/wrong counts, score %, and
-  compares your attempt against your personal best for that quiz length.
-- Every attempt (practice or mock) is saved to your browser's local
-  storage, so history and best-score comparisons persist across visits —
-  as long as you use the same browser on the same computer.
-- "Quit" is available at any time during a quiz, with a confirmation prompt.
-- "Review Answers" after a quiz lets you see every question with your
-  answer vs. the correct one.
+### Start Learning
 
-## Security PIN
+Choose from:
 
-The app now opens to a PIN entry screen before showing any content.
-The PIN is **22032007**. It's checked entirely in the browser (this is a
-simple access gate for casual privacy, not bank-grade security — anyone
-who opens `app.js` in a text editor could read the PIN, and a determined
-visitor could bypass it via browser dev tools). It's enough to stop
-random visitors or search engines from casually browsing the quiz, but
-don't use it to protect anything sensitive.
+* 10 questions
+* 25 questions
+* 50 questions
+* All 877 questions
 
-You'll be asked for the PIN once per browser tab/session — closing and
-reopening the browser will ask again.
+Questions are shuffled for each attempt.
 
-## Putting it on the internet (so anyone with a link can open it)
+### Take Mock Test
 
-Right now this only runs on your own laptop at `localhost`, which no one
-else can reach. To get a real shareable link, you need to upload these
-files to a static file host. All of the options below are free and take
-a few minutes. Pick whichever feels easiest:
+The mock test contains **30 random questions** with a **30-second timer per question**.
 
-### Option A — Netlify Drop (fastest, no account strictly required)
-1. Go to **https://app.netlify.com/drop** in your browser.
-2. Drag the whole `quizapp` folder (the one containing `index.html`)
-   straight onto that page.
-3. It uploads and gives you a live link like
-   `https://random-name-12345.netlify.app` within a few seconds.
-4. That link works for anyone, anywhere — share it as-is.
-   (Sign up for a free account if you want to keep the link permanently
-   and be able to update it later; without an account it may expire.)
+The interface displays:
 
-### Option B — GitHub Pages (free, permanent, best if you're comfortable with GitHub)
-1. Create a free account at **https://github.com** if you don't have one.
-2. Create a new repository (e.g. `learners-test-quiz`), set it to Public.
-3. Upload all the files inside `quizapp` (index.html, app.js, style.css,
-   data.json, images/, README.md) to that repository — GitHub's web
-   interface lets you drag-and-drop files in, no command line needed.
-4. Go to the repository's **Settings → Pages**, set the source branch to
-   `main` and folder to `/ (root)`, then save.
-5. After a minute or two, GitHub gives you a link like
-   `https://yourusername.github.io/learners-test-quiz/` — share that.
+* Countdown timer
+* Live score
+* Current question
+* Answer options
+* Automatic progression when time expires
 
-### Option C — Vercel or Cloudflare Pages
-Similar drag-and-drop or GitHub-connected deployment flows to Netlify.
-Any of these three work equally well for a static site like this one.
+The test ends immediately when the passing threshold of **18 correct answers** is reached.
 
-All three options are free for a small site like this (a few MB total).
+### Instant Feedback
 
-## Notes on the question data
+After selecting an answer, the application immediately indicates whether the selected answer is correct or incorrect.
 
-The questions were extracted from a PDF study guide. A handful (well
-under 1% of 877) had minor inconsistencies in the source document — a
-couple of questions had no marked correct answer at all, and one had two
-answers marked correct. These were manually resolved using standard
-driving-rule knowledge; they're flagged internally as `answer_inferred`
-in the extraction script if you ever want to double check them yourself.
+### Results & Performance Tracking
+
+The results screen displays:
+
+* Time taken
+* Correct answers
+* Incorrect answers
+* Unanswered questions
+* Score percentage
+* Personal best comparison
+
+Attempts are stored in the browser's local storage, allowing previous performance to persist when using the same browser and device.
+
+### Answer Review
+
+After completing a quiz, users can review every question and compare:
+
+* Their selected answer
+* The correct answer
+
+### Quit Anytime
+
+Users can exit an active quiz at any time after confirming the action.
+
+## Tech Stack
+
+| Technology            | Purpose                                  |
+| --------------------- | ---------------------------------------- |
+| HTML5                 | Page structure                           |
+| CSS3                  | Styling and responsive interface         |
+| JavaScript            | Quiz logic and application functionality |
+| JSON                  | Question data storage                    |
+| Browser Local Storage | Attempt history and personal bests       |
+
+No external JavaScript libraries or build tools are required.
+
+## Project Structure
+
+```text
+learners-test-practice/
+│
+├── index.html
+├── style.css
+├── app.js
+├── data.json
+├── images/
+│   └── traffic-signs and other question images
+├── README.md
+└── .gitignore
+```
+
+### File Description
+
+* `index.html` — Application structure and screens
+* `style.css` — Styling and responsive design
+* `app.js` — Quiz logic, scoring, timers, storage and navigation
+* `data.json` — 877 quiz questions and answer data
+* `images/` — Traffic-sign icons and other images referenced by questions
+
+## How to Run Locally
+
+Because the application loads `data.json` using `fetch()`, it should be served through a local web server rather than opened directly using `file://`.
+
+### Option 1 — Python
+
+Open a terminal in the project folder and run:
+
+```bash
+python -m http.server 8000
+```
+
+Then open:
+
+```text
+http://localhost:8000
+```
+
+On systems where `python` is not recognized, try:
+
+```bash
+python3 -m http.server 8000
+```
+
+### Option 2 — Node.js
+
+If Node.js is installed:
+
+```bash
+npx serve .
+```
+
+Open the local URL displayed in the terminal.
+
+### Option 3 — VS Code
+
+Install the **Live Server** extension, then:
+
+1. Open the project in VS Code.
+2. Right-click `index.html`.
+3. Select **Open with Live Server**.
+
+## Access Gate
+
+The application includes a simple browser-side PIN screen before the quiz content is displayed.
+
+This is intended only as a **casual access gate**, not as a security mechanism. Because the application runs entirely in the browser, the PIN and related logic can be inspected or bypassed by someone with access to the source code.
+
+The PIN itself is intentionally not documented in this public repository.
+
+## Question Data
+
+The application currently contains **877 questions** extracted from a learner's licence study guide.
+
+A small number of questions in the original source material contained inconsistencies, including missing or multiple marked answers. These cases were manually reviewed and resolved using standard learner's-licence and traffic-rule references.
+
+Where applicable, inferred answers are marked internally as `answer_inferred`.
+
+## Demo
+
+A short demonstration video showing the application interface and quiz flow is included with this project.
+
+**▶️ [Watch the project demo](#)**
+
+> Replace the link above with the GitHub video attachment URL after uploading the demo video.
+
+## Deployment
+
+The application is a static client-side website and can be deployed using services such as:
+
+* Netlify
+* GitHub Pages
+* Vercel
+* Cloudflare Pages
+
+No backend server is required for the core application.
+
+## Future Improvements
+
+Potential improvements include:
+
+* More comprehensive question categorization
+* Progress dashboards
+* Topic-wise practice
+* Improved accessibility
+* Mobile UI refinements
+* Additional traffic-sign explanations
+* Cloud-based progress synchronization
+* Expanded question bank
+
+## Project Status
+
+**Status:** Completed / Functional
+
+The current version supports practice quizzes, timed mock tests, scoring, answer review, local performance tracking, and traffic-sign questions with images.
+
+## Author
+
+**Ann Nova**
+
+GitHub: [@annnova2007](https://github.com/annnova2007)
+
+## License
+
+This project is intended for educational and practice purposes.
+
+Please verify learner's licence rules and regulations against the latest official transport authority resources before relying on the information for an actual examination.
+
